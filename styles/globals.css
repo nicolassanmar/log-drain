@@ -1,0 +1,42 @@
+html,
+body {
+  align-items: center;
+  display: flex;
+  font-family: sans-serif;
+  height: 100%;
+  justify-content: center;
+  text-align: left;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 1rem;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+article {
+  margin-bottom: 2rem;
+  items-align: top;
+}
+
+article code {
+  display: block;
+}
+
+article code:nth-child(1) {
+  font-weight: bold;
+  padding: 1rem 1rem 0.5rem 0;
+  white-space: nowrap;
+}
+
+article code:nth-child(2) {
+  background: #ffc;
+  padding: 1rem 1rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

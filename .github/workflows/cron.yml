@@ -1,0 +1,13 @@
+name: backup-logs
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call backup API route
+        run: |
+          curl --request POST \
+               --url 'https://drain-test.vercel.app/api/backup' \
+               --header 'Authorization: Bearer ${{ secrets.API_SECRET_KEY }}'

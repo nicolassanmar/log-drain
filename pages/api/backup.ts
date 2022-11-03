@@ -21,7 +21,7 @@ const logSources = [
   'unknown', // default value set on schema file
 ]
 
-async function backup() {
+async function backupAndDelete() {
   for (const source of logSources) {
     const ts = new Date().toISOString().split('.')[0]
     const fileName = `${source}-${ts}.txt`
@@ -47,7 +47,7 @@ export default async function handler(
       const { authorization } = req.headers
 
       if (authorization === `Bearer ${process.env.API_SECRET_KEY}`) {
-        await backup()
+        await backupAndDelete()
 
         // TODO: could be helpful to return the public s3 url as well
         res.status(200).json({ success: true })

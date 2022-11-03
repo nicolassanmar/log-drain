@@ -10,7 +10,11 @@ export default async function handler(
   res: NextApiResponse<Data>,
 ) {
   if (req.method === 'POST') {
-    // TODO: expecting the JSON payload which is an array
+    if (!Array.isArray(req.body)) {
+      res.status(422).json({ success: false })
+      return
+    }
+
     for (const item of req.body) {
       await prisma.logEntry.create({
         data: {

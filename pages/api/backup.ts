@@ -46,7 +46,7 @@ export default async function handler(
     try {
       const { authorization } = req.headers
 
-      if (authorization === `Bearer ${process.env.API_SECRET_KEY}`) {
+      if (authorization === `Bearer ${process.env.NEXT_PUBLIC_API_SECRET_KEY}`) {
         await backupAndDelete()
 
         // TODO: could be helpful to return the public s3 url as well

@@ -18,12 +18,12 @@ const endpoints = [
   {
     method: 'POST',
     path: '/api/drain-client',
-    misc: `-d '${sampleItem}'`
+    misc: `-d '${sampleItem}' -H "Content-Type: application/json"`
   },
   {
     method: 'POST',
     path: '/api/backup',
-    misc: '-H "Authorization: Bearer secret123"',
+    misc: `-H "Authorization: Bearer ${process.env.NEXT_PUBLIC_API_SECRET_KEY}"`,
   },
 ]
 
@@ -36,7 +36,7 @@ export default function Home() {
       </Head>
       {endpoints.map((e) => (
         <article key={e.path}>
-          <code>{`${e.method} ${e.path}`}</code>
+          <code>{`[${e.method}] ${e.path}`}</code>
           <code>{`curl ${apiHost}${e.path} -X ${e.method} ${e.misc}`}</code>
         </article>
       ))}

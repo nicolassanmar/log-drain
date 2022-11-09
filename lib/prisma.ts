@@ -1,4 +1,7 @@
+import getConfig from 'next/config'
 import { PrismaClient } from '@prisma/client'
+
+const { serverRuntimeConfig } = getConfig()
 
 declare global {
   // allow global `var` declarations
@@ -9,7 +12,7 @@ declare global {
 export const prisma =
   global.prisma ||
   new PrismaClient({
-    log: process.env.NODE_ENV === 'development' ? ['query'] : [],
+    log: serverRuntimeConfig.prismaLogLevels,
   })
 
 if (process.env.NODE_ENV !== 'production') global.prisma = prisma

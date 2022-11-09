@@ -1,7 +1,7 @@
+import getConfig from 'next/config'
 import Head from 'next/head'
 
-// TODO: have the api host change depending on environment (process.env.APP_HOST)
-const apiHost = 'https://drain-test.vercel.app'
+const { publicRuntimeConfig } = getConfig()
 
 const sampleItem = JSON.stringify({
   source: 'someSource',
@@ -23,7 +23,7 @@ const endpoints = [
   {
     method: 'POST',
     path: '/api/backup',
-    misc: `-H "Authorization: Bearer ${process.env.NEXT_PUBLIC_API_SECRET_KEY}"`,
+    misc: `-H "Authorization: Bearer ${publicRuntimeConfig.apiSecretKey}"`,
   },
 ]
 
@@ -37,7 +37,7 @@ export default function Home() {
       {endpoints.map((e) => (
         <article key={e.path}>
           <code>{`[${e.method}] ${e.path}`}</code>
-          <code>{`curl ${apiHost}${e.path} -X ${e.method} ${e.misc}`}</code>
+          <code>{`curl ${publicRuntimeConfig.apiHost}${e.path} -X ${e.method} ${e.misc}`}</code>
         </article>
       ))}
     </main>

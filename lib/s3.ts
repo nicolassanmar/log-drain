@@ -1,16 +1,19 @@
+import getConfig from 'next/config'
 import { S3 } from '@aws-sdk/client-s3'
 
+const { serverRuntimeConfig } = getConfig()
+
 export const s3 = new S3({
-  region: process.env.S3_REGION,
+  region: serverRuntimeConfig.s3Region,
   credentials: {
-    accessKeyId: process.env.S3_ACCESS_KEY_ID,
-    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+    accessKeyId: serverRuntimeConfig.s3AccessKeyId,
+    secretAccessKey: serverRuntimeConfig.s3SecretAccessKey,
   },
 })
 
 export async function upload(key: string, body: string) {
   const input = {
-    Bucket: process.env.S3_BUCKET,
+    Bucket: serverRuntimeConfig.s3Bucket,
     Key: key,
     Body: body,
   }

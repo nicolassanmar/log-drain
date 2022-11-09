@@ -1,6 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import getConfig from 'next/config'
 import { prisma } from '../../lib/prisma'
 import { upload } from '../../lib/s3'
+
+const { publicRuntimeConfig } = getConfig()
 
 type Data =
   | {
@@ -46,7 +49,7 @@ export default async function handler(
     try {
       const { authorization } = req.headers
 
-      if (authorization === `Bearer ${process.env.NEXT_PUBLIC_API_SECRET_KEY}`) {
+      if (authorization === `Bearer ${publicRuntimeConfig.apiSecretKey}`) {
         await backupAndDelete()
 
         // TODO: could be helpful to return the public s3 url as well

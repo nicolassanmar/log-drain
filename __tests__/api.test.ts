@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { createMocks, RequestMethod } from 'node-mocks-http'
 import { prisma } from '../lib/prisma'
+import { upload } from '../lib/s3';
 import serverHandler from '../pages/api/drain-server'
 import clientHandler from '../pages/api/drain-client'
 import backupHandler from '../pages/api/backup'
-import { upload } from '../lib/s3';
 
 jest.mock('../lib/s3', () => {
   return { upload: jest.fn() }

@@ -10,15 +10,12 @@ export default async function handler(
   res: NextApiResponse<Data>,
 ) {
   if (req.method === 'POST') {
-    if (!Array.isArray(req.body)) {
-      res.status(422).json({ success: false })
-      return
-    }
+    const body = Array.isArray(req.body) ? req.body : [req.body]
 
-    for (const item of req.body) {
+    for (const item of body) {
       await prisma.logEntry.create({
         data: {
-          source: item.source,
+          source: item.label,
           request: item,
         },
       })

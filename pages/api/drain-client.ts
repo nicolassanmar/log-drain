@@ -10,11 +10,12 @@ export default async function handler(
   res: NextApiResponse<Data>,
 ) {
   if (req.method === 'POST') {
+    const item = req.body
     await prisma.logEntry.create({
       data: {
-        source: 'client',
+        source: item.label,
         // We're open to accept anything from navigator.sendBeacon()
-        request: req.body,
+        request: item,
       },
     })
 

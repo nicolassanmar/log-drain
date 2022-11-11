@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "mongo": "docker run --rm --name logdrain-mongo-dev -e MONGO_INITDB_ROOT_USERNAME=user -e MONGO_INITDB_ROOT_PASSWORD=pass -p 27018:27017 mongo:6.0-focal ",
+    "postgres": "docker run -p 5432:5432 --rm --name logdrain-postgres -e POSTGRES_PASSWORD=postgres postgres",
+    "prisma-setup": "npx prisma generate && prisma db push"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.202.0",
